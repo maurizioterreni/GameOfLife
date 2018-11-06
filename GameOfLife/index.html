@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Draw the Grid Lines on canvas In HTML5</title>
+    <link rel="stylesheet" type="text/css" href="style/main.css">
+    <script src="scripts/main.js"></script>
+</head>
+<body onload="displayGrid()">
+    <div class="canvas_container">
+      <canvas id="myCanvas" width="600px" height="330px"></canvas>
+      <br />
+      Choose color:
+      <select id="ddlcolor" onchange="changeColor()">
+          <option value="#f2f2f2">#f2f2f2</option>
+          <option value="#000">#000 </option>
+      </select>
+      Thickness of the lines:
+      <select id="ddlSize" onchange="changeSize()">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+      </select>
+      Grid Lines space:
+      <select id="ddlSpace" onchange="changeGridSpace()">
+          <option value="15">15</option>
+          <option value="10">10</option>
+          <option value="5">5</option>
+      </select>
+    </div>
+</body>
+</html>
