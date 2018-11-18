@@ -138,12 +138,14 @@ class Main extends React.Component{
     }
 
     slow = () => {
-        this.speed = 1000;
+        this.speed = this.speed + 100;
         this.playButton();
     }
 
     fast = () => {
-        this.speed = 100;
+        if(this.speed > 100){
+            this.speed = this.speed - 100;
+        }
         this.playButton();
     }
 
@@ -187,8 +189,6 @@ class Main extends React.Component{
     }
 
     componentDidMount() {
-        this.seed();
-        this.playButton();
     }
 
     render(){
@@ -211,6 +211,7 @@ class Main extends React.Component{
                     selectBox = {this.selectBox}
                     />
                 <h2>Generations: {this.state.generation}</h2>
+                <h3>Frame Rate: {this.speed / 1000}</h3>
             </div>
         );
     }
@@ -221,8 +222,3 @@ function arrayClone(arr){
 }
 
 ReactDOM.render(<Main/>, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-//serviceWorker.unregister();
