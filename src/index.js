@@ -52,6 +52,14 @@ class Grid extends React.Component{
     }
 }
 
+class Button extends React.Component{
+    render(){
+        return(
+
+        );
+    }
+}
+
 class Main extends React.Component{
     constructor (){
         super();
@@ -73,6 +81,41 @@ class Main extends React.Component{
         });
     }
 
+    playButton = () => { 
+        clearInterval(this.intervalId); 
+        this.intervalId = setInterval(this.play, this.speed);
+    }
+
+    play = () => {
+        let g = this.state.gridFull;
+        let g2 = arrayClone(this.state.gridFull);
+
+        for(var i = 0; i < this.rows; i++){
+            for(var k = 0; k < this.cols; k++){
+                let count = 0;
+                if (i > 0) if (g[i - 1][k]) count++;
+                if (i > 0 && k > 0) if (g[i - 1][k - 1]) count++;
+                if (i > 0 && k < this.cols - 1) if (g[i - 1][k + 1]) count++;
+                if (k < this.cols - 1) if (g[i][k + 1]) count++;
+                if (k > 0) if (g[i][k - 1]) count++;
+                if (i < this.rows - 1) if (g[i + 1][k]) count++;
+                if (i < this.rows - 1 && k > 0) if (g[i + 1][k - 1]) count++;
+                if (i < this.rows - 1 && k < this.cols - 1) if (g[i + 1][k + 1]) count++;
+                if (g[i][k] && (count < 2 || count > 3)) g2[i][k] = false;
+                if (!g[i][k] && count === 3) g2[i][k] = true;
+            }
+        }
+
+        this.setState({
+            gridFull: g2,
+            generation: this.state.generation + 1
+        });
+    }
+
+    pause = () => {
+        clearInterval(this.intervalId );
+    }
+
     seed = () => {
         console.log("Seed");
         let gridCopy = arrayClone(this.state.gridFull);
@@ -91,12 +134,22 @@ class Main extends React.Component{
 
     componentDidMount() {
         this.seed();
+        this.playButton();
     }
 
     render(){
         return(
             <div>
                 <h1>Game Of Life</h1>
+                <Button
+                    playButton = {this.playButton}
+                    pauseButton = {this.pauseButton}
+                    slow = {this.slow}
+                    fast = {this.fast}
+                    clear = {this.clear}
+                    seed = {this.seed}
+                    gridSize = {this.gridSize}
+                />
                 <Grid 
                     gridFull = {this.state.gridFull}
                     rows = {this.rows}
