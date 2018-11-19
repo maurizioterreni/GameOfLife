@@ -12,7 +12,7 @@ class Box extends React.Component{
 
     render(){
         return(
-            <div 
+            <div
                 className = {this.props.boxClass}
                 id = {this.props.id}
                 onClick = {this.selectBox}
@@ -67,7 +67,7 @@ class Button extends React.Component{
                     <button className="btn btn-default" onClick={this.props.slow}>Slow</button>
                     <button className="btn btn-default" onClick={this.props.fast}>Fast</button>
                     <button className="btn btn-default" onClick={this.props.seed}>Seed</button>
-                    <DropdownButton 
+                    <DropdownButton
                         title = "Grid Size"
                         id = "size-menu"
                         onSelect = {this.handleSelected}>
@@ -102,8 +102,8 @@ class Main extends React.Component{
         });
     }
 
-    playButton = () => { 
-        clearInterval(this.intervalId); 
+    playButton = () => {
+        clearInterval(this.intervalId);
         this.intervalId = setInterval(this.play, this.speed);
     }
 
@@ -158,13 +158,13 @@ class Main extends React.Component{
     }
 
     gridSize = (size) => {
-        if(size == "1"){
+        if(size === "1"){
             this.cols = 20;
             this.rows = 10;
-        }else if(size == "2"){
+        }else if(size === "2"){
             this.cols = 50;
             this.rows = 30;
-        }else if(size == "3"){
+        }else if(size === "3"){
             this.cols = 70;
             this.rows = 50;
         }
@@ -176,7 +176,7 @@ class Main extends React.Component{
         console.log("Seed");
         let gridCopy = arrayClone(this.state.gridFull);
         for(var i = 0; i < this.rows; i++){
-            for(var k = 0; k < this.cols; k++){  
+            for(var k = 0; k < this.cols; k++){
                 if(Math.floor(Math.random() * 4) === 1) {
                     console.log("Random");
                     gridCopy[i][k] = true;
@@ -204,7 +204,7 @@ class Main extends React.Component{
                     seed = {this.seed}
                     gridSize = {this.gridSize}
                 />
-                <Grid 
+                <Grid
                     gridFull = {this.state.gridFull}
                     rows = {this.rows}
                     cols = {this.cols}
