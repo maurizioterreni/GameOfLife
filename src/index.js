@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { ButtonToolbar, MenuItem, DropdownButton } from 'react-bootstrap';
 
+//Oggetto che modella la cella della griglia
 
 class Box extends React.Component{
 
@@ -20,13 +21,14 @@ class Box extends React.Component{
         );
     }
 }
-
+//Componente che realizza la griglia di gioco
 class Grid extends React.Component{
     render(){
         const width = (this.props.cols * 14);
         var rowsArr = [];
 
         var boxClass = "";
+        //viene desegnato un box finchè non viene riempita sutta la griglia
         for(var i = 0; i < this.props.rows; i++){
             for(var k = 0; k < this.props.cols; k++){
                 let boxId = i + "_" + k;
@@ -52,7 +54,7 @@ class Grid extends React.Component{
         );
     }
 }
-
+//componente che consente di disegnare il menu sopra la griglia
 class Button extends React.Component{
     handleSelected = (evt) => {
         this.props.gridSize(evt);
@@ -80,7 +82,7 @@ class Button extends React.Component{
         );
     }
 }
-
+//Classe principale
 class Main extends React.Component{
     constructor (){
         super();
@@ -101,12 +103,12 @@ class Main extends React.Component{
             gridFull: gridCopy
         });
     }
-
+    //Metodo richiamato al momento della pressione del tasto paly
     playButton = () => {
         clearInterval(this.intervalId);
         this.intervalId = setInterval(this.play, this.speed);
     }
-
+    //metodo in cui è implementata la logica del gioco
     play = () => {
         let g = this.state.gridFull;
         let g2 = arrayClone(this.state.gridFull);
@@ -132,23 +134,23 @@ class Main extends React.Component{
             generation: this.state.generation + 1
         });
     }
-
+    //mette in pausa il gioco
     pauseButton = () => {
         clearInterval(this.intervalId );
     }
-
+    //rallenta il frame rate del gioco
     slow = () => {
         this.speed = this.speed + 100;
         this.playButton();
     }
-
+    //velocizza il frame rate del gioco
     fast = () => {
         if(this.speed > 100){
             this.speed = this.speed - 100;
         }
         this.playButton();
     }
-
+    //pulisce la griglia
     clear = () => {
         var grid = Array(this.rows).fill().map(() => Array(this.cols).fill(false));
         this.setState({
@@ -171,7 +173,7 @@ class Main extends React.Component{
 
         this.clear();
     }
-
+    //Metodo che implementa la generazione random della griglia
     seed = () => {
         console.log("Seed");
         let gridCopy = arrayClone(this.state.gridFull);
@@ -220,5 +222,5 @@ class Main extends React.Component{
 function arrayClone(arr){
     return JSON.parse(JSON.stringify(arr));
 }
-
+//definisco il componente principale
 ReactDOM.render(<Main/>, document.getElementById('root'));
